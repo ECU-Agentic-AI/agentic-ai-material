@@ -6,11 +6,12 @@ This repo is used to share documentation with my ECU Applied Agentic AI course s
 
 | File | Description |
 | --- | --- |
-| [first-ai-agent-chatbot.md](first-ai-agent-chatbot.md) | First chatbot walkthrough |
-| [foundry-cli-reference.md](foundry-cli-reference.md) | Foundry CLI command reference |
 | [local-inference-comparison.md](local-inference-comparison.md) | Local inference option comparison |
 | [openai-compatible.md](openai-compatible.md) | OpenAI-compatible API notes |
 | [resource-links.md](resource-links.md) | Helpful course resource links |
 | [setup-environment.md](setup-environment.md) | Environment setup instructions |
+| [foundry-cli-reference.md](foundry-cli-reference.md) | Foundry CLI command reference |
 | [test-rest-harness.http](test-rest-harness.http) | Reusable REST test requests |
+|||
+| [first-ai-agent-chatbot.md](first-ai-agent-chatbot.md) | First chatbot walkthrough |
 
