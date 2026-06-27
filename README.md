@@ -1,0 +1,3 @@
+# ECU Applied Agentic AI
+
+This repo is used to share documentation with my ECU Applied Agentic AI course students.  It will be updated regularly.  You will need to perform `git pull` to receive updates.  It is recommended that you do not modify the files in this repo.  If you want to modify, then please create a new branch and modify files there in order to prevent issues keeping my updates in sync.

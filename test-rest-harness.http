@@ -1,0 +1,26 @@
+@foundry-host = http://localhost:22334/v1
+@ollama-host = http://localhost:11434/v1
+
+###
+POST {{foundry-host}}/chat/completions
+Content-Type: application/json
+
+{
+  "model": "qwen2.5-0.5b-instruct-openvino-npu:5",
+  "messages": [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Hello!" }
+  ]
+}
+
+###
+POST {{ollama-host}}/chat/completions
+Content-Type: application/json
+
+{
+  "model": "llama3",
+  "messages": [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Hello!" }
+  ]
+}
