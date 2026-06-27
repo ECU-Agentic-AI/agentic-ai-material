@@ -249,6 +249,8 @@ Authorization: Bearer <api_key>
 
 Some runtimes ignore the key but still require the header.
 
+> Note: Foundry Local will accept anything for api_key, because it is not used.  We will typically just use "foundrylocal" as the API Key.
+
 ---
 
 # 8. Using the Official OpenAI SDK with Any Runtime
