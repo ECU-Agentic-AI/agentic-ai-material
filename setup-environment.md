@@ -28,6 +28,9 @@
 
 # 1. WINDOWS INSTALLATION (GPU‑Accelerated)
 
+> Note: I recommend that you use WinGet for installing applications. `winget --version` to confirm it is installed.  If not installed, you can install from Microsoft Store  `ms-windows-store://pdp/?productid=9NBLGGH4NNS1`
+
+> Note: I recommend that you install CoreUtils.  This will make the most common linux commands native in windows shells...including cUrl.  `winget install Microsoft.Coreutils`
 
 ## 1.0 Install curl
 
@@ -66,31 +69,32 @@ You should see:
 
 > Note: Foundry Local is a native AI solution that is embedded into your application.  The following install is to provide Ollama-like REST functionality, but it is not required for native AI embedding.
 
-Download the Windows installer:
+### Install - Use WinGet
 
-- https://www.foundrylocal.ai
+```powershell
+winget install Foundry
+```
 
-Run installer → accept defaults.
-
-Verify installation:
+### Verify installation:
 
 ```powershell
 foundry --version
 ```
 
-Pull a model:
+### Pull a model:
 
 ```powershell
 foundry model download qwen2.5-0.5b
 ```
+> Note: You can specify the model alias, foundry will inspect your hardware, and download the best hardware variant for your system.
 
-View downloaded models
+### View downloaded models
 
 ```powershell
 foundry cache list
 ```
 
-Test:
+### Test:
 
 ```powershell
 foundry model run qwen2.5-0.5b
@@ -110,13 +114,15 @@ Interactive mode, please enter your prompt
 This means that the square of 12 is 144.
 ```
 
-Test REST API:
+### Test REST API:
+
+#### Check foundry service status
 
 ```powershell
 foundry service status
 ```
 
-Start the local server:
+#### Start the local server:
 
 ```powershell
 foundry service start
@@ -128,16 +134,24 @@ Default endpoint:
 No default endpoint.  Need to pay attention to console output for port or explicitly set the endpoint configuration if you want to use REST API.
 ```
 
-
-```bash
-curl http://127.0.0.1:54070/, -d "{ \"model\": \"qwen2.5-0.5b-instruct-openvino-npu:5\", \"messages\": [ { \"role\": \"system\", \"content\": \"You are a NFL football analyst\" }, { \"role\": \"user\", \"content\": \"Who will win the super bowl in 2027\" } ], \"response_format\": { \"type\": \"json_object\" } }"
-```
+Using Powershell
 ```powershell
-curl http://127.0.0.1:54070/ -d "{ ""model"": ""qwen2.5-0.5b-instruct-openvino-npu:5"", ""messages"": [ { ""role"": ""system"", ""content"": ""You are a NFL football analyst"" }, { ""role"": ""user"", ""content"": ""Who will win the super bowl in 2027"" } ], ""response_format"": { ""type"": ""json_object"" } }"
+curl http://127.0.0.1:54070/v1/chat/completions -d "{ ""model"": ""qwen2.5-0.5b-instruct-openvino-npu:5"", ""messages"": [ { ""role"": ""system"", ""content"": ""You are a NFL football analyst"" }, { ""role"": ""user"", ""content"": ""Who will win the super bowl in 2027"" } ], ""response_format"": { ""type"": ""json_object"" } }"
+```
+Using REST Client in VS Code
+```
+POST http://127.0.0.1:54070/v1/chat/completions
+Content-Type: application/json
+
+{
+    "model": "qwen2.5-0.5b-instruct-openvino-npu:5",
+    "messages": [
+        {"role": "user", "content": "Hello!"}
+    ]
+}
 ```
 
-> Note: You must specify the specific model variant when using Foundry Local as a REST API.
-
+> Note: You must specify the specific model variant when using Foundry Local REST API.
 
 Example response:
 ```json
@@ -177,8 +191,8 @@ Example response:
 Download:
 
 - https://ollama.com/download/windows
-
-Install → restart terminal.
+- You can download using the provided PowerShell command or download the installer
+- Install → restart terminal.
 
 Verify:
 
@@ -216,25 +230,33 @@ The REST calls above are not OpenAI compliant.  You must use OpenAI compliant ca
 
 Here are examples of the same prompt using OpenAI compliant schema.
 
-```bash
-curl http://localhost:11434/v1/chat/completions `
-  -H "Content-Type: application/json" `
-  -d "{\"model\":\"llama3\",\"messages\":[{\"role\":\"user\",\"content\":\"Explain vector databases.\"}]}"
-```
-
 ```powershell
 curl http://localhost:11434/v1/chat/completions `
   -H "Content-Type: application/json" `
   -d "{""model"":""llama3"",""messages"":[{""role"":""user"",""content"":""Explain vector databases.""}]}"
 ```
+Using REST Client in VS Code
+```
+POST http://127.0.0.1:11434/v1/chat/completions
+Content-Type: application/json
 
-> Note: You can use the model alias with Ollama.
+{
+    "model": "llama3",
+    "messages": [
+        {"role": "user", "content": "Hello!"}
+    ]
+}
+```
+
+> Note: You can use the model alias with Ollama REST API.
 
 ---
 
 ## 1.4 Configure .NET 10 App to Use Both Backends
 
 Create project:
+
+Decide where you want to place Agentic AI source code on your file system, then create your first project.
 
 ```powershell
 dotnet new console -n LocalAI
@@ -310,17 +332,42 @@ Verify:
 dotnet --version
 ```
 
+You should see:
+
+```
+10.x.x
+```
+
+---
 ---
 
 ## 2.2 Install Foundry Local (macOS)
 
 > Note: Foundry Local is a native AI solution that is embedded into your application.  The following install is to provide Ollama-like REST functionality, but it is not required for native AI embedding.
 
-Download macOS installer:
+### Install - Use WinGet
 
-- https://www.foundrylocal.ai
+```bash
+brew tap microsoft/foundrylocal
 
-Install → allow permissions if prompted.
+brew trust --formula microsoft/foundrylocal/foundrylocal
+
+brew install foundrylocal
+
+```
+> Note: You get an error when installing foundry local saying you must install or update your xcode command line tools.  I believe foundry requires the latest version of xcode.  Below are the commands if you received the error message.
+
+Only run these commands if you received the xcode commandline error message
+```bash
+sudo rm -rf /Library/Developer/CommandLineTools
+
+sudo xcode-select --install
+
+# Accept license agreement
+
+# Try installing foundry local again
+brew install foundrylocal
+```
 
 Verify:
 
@@ -381,6 +428,19 @@ No default endpoint.  Need to pay attention to console output for port or explic
 curl http://127.0.0.1:54070/, -d "{ \"model\": \"qwen2.5-0.5b-instruct-openvino-npu:5\", \"messages\": [ { \"role\": \"system\", \"content\": \"You are a NFL football analyst\" }, { \"role\": \"user\", \"content\": \"Who will win the super bowl in 2027\" } ], \"response_format\": { \"type\": \"json_object\" } }"
 ```
 
+Using REST Client in VS Code
+```
+POST http://127.0.0.1:54070/v1/chat/completions
+Content-Type: application/json
+
+{
+    "model": "qwen2.5-0.5b-instruct-openvino-npu:5",
+    "messages": [
+        {"role": "user", "content": "Hello!"}
+    ]
+}
+```
+
 > Note: You must specify the specific model variant when using Foundry Local as a REST API.
 
 
@@ -423,8 +483,9 @@ Example response:
 Download:
 
 - https://ollama.com/download/mac
-
-Install → macOS will prompt for security approval.
+- You can download either using curl or download dmg package
+- Install → macOS will prompt for security approval.
+- Install → restart terminal.
 
 Verify:
 
@@ -437,6 +498,13 @@ Start service:
 ```bash
 ollama serve
 ```
+
+Default endpoint:
+
+```
+http://localhost:11434/v1
+```
+
 
 Pull a model:
 
@@ -460,11 +528,26 @@ curl http://localhost:11434/v1/chat/completions `
   -d "{\"model\":\"llama3\",\"messages\":[{\"role\":\"user\",\"content\":\"Explain vector databases.\"}]}"
 ```
 
-> Note: You can use the model alias with Ollama.
+Using REST Client in VS Code
+```
+POST http://127.0.0.1:54070/v1/chat/completions
+Content-Type: application/json
+
+{
+    "model": "llama3",
+    "messages": [
+        {"role": "user", "content": "Hello!"}
+    ]
+}
+```
+
+> Note: You can use the model alias with Ollama REST API.
 
 ---
 
 ## 2.4 Configure .NET 10 App (Same Code as Windows)
+
+Decide where you want to place Agentic AI source code on your file system, then create your first project.
 
 Create project:
 
@@ -644,7 +727,7 @@ POST {{ollama-host}}/chat/completions
 Put headers directly under the request line. Leave one blank line between the headers and the body:
 
 ```http
-POST {{ollama-host}}/chat/completions
+POST {{ollama-host}}/v1/chat/completions
 Content-Type: application/json
 
 {
