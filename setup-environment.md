@@ -16,7 +16,12 @@
     - [2.2 Install Foundry Local](#22-install-foundry-local-macos)
     - [2.3 Install Ollama](#23-install-ollama-macos)
     - [2.4 Configure .NET 10 App](#24-configure-net-10-app-same-code-as-windows)
-- [3. Using REST Client in VS Code](#3-using-rest-client-in-vs-code)
+- [3. Install and Configure VS Code](#3-install-and-configure-vs-code)
+    - [3.1 Install VS Code](#31-install-vs-code)
+    - [3.2 Create the agentic-ai Profile](#32-create-the-agentic-ai-profile)
+    - [3.3 Turn On Auto Save](#33-turn-on-auto-save)
+    - [3.4 Install Recommended C# Extensions](#34-install-recommended-c-extensions)
+- [4. Using REST Client in VS Code](#4-using-rest-client-in-vs-code)
 
 
 ---
@@ -525,22 +530,91 @@ dotnet run
 ---
 
 
-# 3. USING REST CLIENT IN VS CODE
+# 3. INSTALL AND CONFIGURE VS CODE
+
+
+Visual Studio Code is the editor used for this course. Install it before working through the local AI and .NET examples.
+
+## 3.1 Install VS Code
+
+Download and install VS Code:
+
+- https://code.visualstudio.com/download
+
+Windows students can also install it with winget:
+
+```powershell
+winget install Microsoft.VisualStudioCode
+```
+
+macOS students can also install it with Homebrew:
+
+```bash
+brew install --cask visual-studio-code
+```
+
+After installation, open a new terminal and confirm that the `code` command is available:
+
+```powershell
+code --version
+```
+
+If the command is not found on macOS, open VS Code, press `Cmd+Shift+P`, run **Shell Command: Install 'code' command in PATH**, then restart the terminal.
+
+## 3.2 Create the agentic-ai Profile
+
+Use a separate VS Code profile for this course so extensions and settings stay organized.
+
+1. Open VS Code.
+2. Select the gear icon in the lower-left corner.
+3. Select **Profiles**.
+4. Select **Create Profile**.
+5. Name the profile `agentic-ai`.
+6. Create it from the default profile, then select **Create**.
+7. Click the checkmark next to the new agentic-ai profile in the list of profiles to activate it.
+8. Make sure the active profile shown in VS Code is `agentic-ai`.
+
+## 3.3 Turn On Auto Save
+
+Turn on Auto Save while the `agentic-ai` profile is active so the setting is saved to that profile.
+
+1. Select **File**.
+2. Select **Auto Save**.
+
+## 3.4 Install Recommended C# Extensions
+
+Install these extensions while the `agentic-ai` profile is active:
+
+| Extension | Marketplace ID |
+| --- | --- |
+| C# Dev Kit | `ms-dotnettools.csdevkit` |
+| C# | `ms-dotnettools.csharp` |
+| IntelliCode for C# Dev Kit | `ms-dotnettools.vscodeintellicode-csharp` |
+| .NET Install Tool | `ms-dotnettools.vscode-dotnet-runtime` |
+
+You can install them from the Extensions view, or use the command line:
+
+```powershell
+code --profile agentic-ai --install-extension ms-dotnettools.csdevkit
+code --profile agentic-ai --install-extension humao.rest-client
+code --profile agentic-ai --install-extension bierner.markdown-mermaid
+code --profile agentic-ai --install-extension ms-vscode.live-server
+code --profile agentic-ai --install-extension ms-windows-ai-studio.windows-ai-studio
+code --profile agentic-ai --install-extension ms-azuretools.vscode-containers
+code --profile agentic-ai --install-extension microsoft-aspire.aspire-vscode
+```
+
+---
+
+
+# 4. USING REST CLIENT IN VS CODE
 
 
 This guide includes REST API checks for Foundry Local and Ollama. You can run those requests from the command line with `curl`, or directly inside VS Code with the REST Client extension.
 
-Install the extension:
-
-1. Open VS Code.
-2. Select **Extensions**.
-3. Search for **REST Client**.
-4. Install **REST Client** by Huachao Mao.
-
-You can also install it from the command line:
-
-```powershell
-code --install-extension humao.rest-client
+If you have not installed already, install the extension: 
+```bash
+code --profile agentic-ai --install-extension humao.rest-client
 ```
 
 After installing it, open `test-rest-harness.http`. Each request has a **Send Request** link above it. Start the local service you want to test, then select **Send Request** to call the endpoint and view the response inside VS Code.
