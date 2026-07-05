@@ -15,6 +15,6 @@ This repo is used to share documentation with my ECU Applied Agentic AI course s
 | [test-rest-harness.http](test-rest-harness.http) | Reusable REST test requests |
 |||
 |*foundry-examples\\*||
-| - [simple-chatbot-csharp.md](simple-chatbot-csharp.md) | Simple Chatbot using C# |
-| - [simple-chatbot-python.md](simple-chatbot-python.md) | Simple Chatbot using Python |
+| - [simple-chatbot-csharp.md](foundry-examples\simple-chatbot-csharp.md) | Simple Chatbot using C# |
+| - [simple-chatbot-python.md](foundry-examples\simple-chatbot-python.md) | Simple Chatbot using Python |
 
