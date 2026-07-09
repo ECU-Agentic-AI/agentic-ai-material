@@ -13,7 +13,6 @@ This repo is used to share documentation with my ECU Applied Agentic AI course s
 | [foundry-cli-reference.md](foundry-cli-reference.md) | Foundry CLI command reference |
 | [foundry-sdk.md](foundry-sdk.md) | Foundry Local SDK cheatsheet |
 | [microsoft-agent-framework.md](microsoft-agent-framework.md) | Agent Framework document series overview |
-| [01-foundry-local-core-agent-concepts.md](01-foundry-local-core-agent-concepts.md) | Agent Framework core concepts with Foundry Local and Aspire |
 | [test-rest-harness.http](test-rest-harness.http) | Reusable REST test requests |
 |||
 |*foundry-examples/*||
