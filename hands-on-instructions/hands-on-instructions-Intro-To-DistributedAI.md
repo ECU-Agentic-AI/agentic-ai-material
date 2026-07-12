@@ -472,7 +472,7 @@ public sealed record ChatResponse(string Reply);
 
 About 9 lines of code from the top of the above code file, we are reading a model value from configuration.  We need to add this configuration; otherwise, we'll a null reference exception will be thrown and are application will crash.
 
-Replace the content in the `IntroToDistributedAI\appsettings.json`
+Replace the content in the `IntroToDistributedAI.TutorAgent\appsettings.json`
 ```json
 {
   "Logging": {
