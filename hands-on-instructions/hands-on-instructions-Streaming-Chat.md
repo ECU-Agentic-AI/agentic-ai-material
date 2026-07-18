@@ -332,6 +332,12 @@ The layers have different jobs:
 An agent is not the model alone. The application, framework, model, instructions, tools, and runtime all contribute to the behavior that you observe.
 
 ## We will start with a simple streaming chat using Microsoft Agent Framework (MAF)
+```mermaid
+flowchart LR
+  User[User] --> app[Console]
+  app --> Agent[Microsoft Agent Framework agent]
+  Agent --> ollama[Ollama]
+```
 
 Confirm that the .NET 10 SDK and Ollama are installed:
 
@@ -347,22 +353,25 @@ ollama list
 # check tool calling ability
 ollama show <model name>
 ```
+
+```bash
++  ➜ ollama show llama3.2
+  Model
+    architecture        llama
+    parameters          3.2B
+    context length      131072
+    embedding length    3072
+    quantization        Q4_K_M
+
+  Capabilities
+    completion
+    tools
+
+  ...
+```
 ---
 
 ## Part 1: Streaming chat response hands-on
-
-### Two layers of streaming
-
-Foundry Local's OpenAI-compatible endpoint and Microsoft Agent Framework both support streaming, but they expose different abstractions.
-
-| Layer | What is streamed | Typical C# API |
-| --- | --- | --- |
-| OpenAI-compatible runtime | Provider-level chat completion chunks, commonly transported as Server-Sent Events (SSE). | `CompleteChatStreamingAsync` |
-| Agent Framework | `AgentResponseUpdate` objects that can contain text, tool calls, tool results, usage data, or other content. | `RunStreamingAsync` |
-
-SSE sends a sequence of events over one HTTP response. Instead of waiting for the complete answer, the client can process pieces as they arrive.
-
-Agent Framework raises the abstraction level. Your application iterates an `IAsyncEnumerable<AgentResponseUpdate>` with `await foreach`. An update is not guaranteed to be student-facing text, so inspect the update instead of assuming that every item is a token.
 
 ### Create the streaming project
 
