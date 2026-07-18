@@ -300,7 +300,7 @@ You will then build four kinds of tools for a tutor agent:
 
 ```mermaid
 flowchart LR
-  Student[Student] --> Ui[UI client]
+  Student[User] --> Ui[UI client]
   Ui --> AgUiClient[AG-UI client]
   AgUiClient --> AgUiServer[AG-UI server endpoint]
   AgUiServer --> App[C# application / agent service]
