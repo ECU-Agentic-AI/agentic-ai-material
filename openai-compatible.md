@@ -71,15 +71,199 @@ Examples of compatible runtimes: vLLM, SGLang, Ollama, TGI, Foundry Local, LM St
 `POST /v1/responses`
 
 ### Request
+
+Full json structure of `/v1/responses` request
 ```json
 {
   "model": "llama3",
-  "input": "Summarize the role of attention in transformers.",
-  "max_output_tokens": 200
-}
+  "input": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Explain how attention works in transformers."
+    }
+  ],
+
+  "instructions": "Follow system and developer instructions strictly.",
+  "previous_response_id": "resp_000001",
+
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "search",
+        "description": "Search the web for information.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": { "type": "string" }
+          },
+          "required": ["query"]
+        }
+      }
+    }
+  ],
+
+  "tool_choice": "auto",
+  "parallel_tool_calls": true,
+  "max_tool_calls": 5,
+
+  "temperature": 0.8,
+  "top_p": 0.95,
+  "top_k": 50,
+  "frequency_penalty": 0.2,
+  "presence_penalty": 0.1,
+  "top_logprobs": 0,
+
+  "max_output_tokens": 500,
+
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "transformer_explanation",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "summary": { "type": "string" },
+          "details": { "type": "string" }
+        },
+        "required": ["summary"]
+      }
+    }
+  },
+
+  "text": {
+    "format": {
+      "type": "text"
+    }
+  },
+
+  "reasoning": {
+    "effort": "medium"
+  },
+
+  "metadata": {
+    "request_id": "req_12345",
+    "course": "CS-5010",
+    "module": "Transformers"
+  },
+
+  "store": true,
+  "background": false,
+  "service_tier": "default",
+
+  "truncation": "auto",
+
+  "client": {
+    "agent": "ECU-Teaching-Agent",
+    "version": "1.0.0"
+  }
+
 ```
 
+---
+
+# ✅ **Brief Description of Every Field in a `/v1/responses` Request**
+
+### **model**  
+Name of the model that will generate the response.
+
+### **input**  
+Array of messages (system, user, assistant) that form the prompt.
+
+### **instructions**  
+Additional high‑level instructions that guide the model’s behavior.
+
+### **previous_response_id**  
+Links this request to a prior response for continuity or chaining.
+
+---
+
+# 🧰 **Tooling Fields**
+
+### **tools**  
+List of tools/functions the model is allowed to call.
+
+### **tool_choice**  
+Controls whether the model may call tools (`auto`, `none`, or forced tool).
+
+### **parallel_tool_calls**  
+Allows the model to call multiple tools at the same time.
+
+### **max_tool_calls**  
+Maximum number of tool calls allowed for this request.
+
+---
+
+# 🔥 **Sampling & Generation Controls**
+
+### **temperature**  
+Controls randomness; higher = more creative.
+
+### **top_p**  
+Nucleus sampling; restricts sampling to top‑probability tokens.
+
+### **top_k**  
+Limits sampling to the top‑K most likely tokens.
+
+### **frequency_penalty**  
+Discourages repeating tokens.
+
+### **presence_penalty**  
+Discourages repeating topics or concepts.
+
+### **top_logprobs**  
+Number of top token log‑probabilities to return.
+
+### **max_output_tokens**  
+Hard limit on how many tokens the model may generate.
+
+---
+
+# 🧩 **Output Formatting**
+
+### **response_format**  
+Defines structured output (e.g., JSON schema).
+
+### **text.format**  
+Controls plain‑text formatting rules.
+
+### **reasoning.effort**  
+Hints at how much internal reasoning the model should perform.
+
+---
+
+# 📦 **Metadata & Execution Behavior**
+
+### **metadata**  
+User‑defined metadata attached to the request.
+
+### **store**  
+Whether the response should be stored for retrieval or memory.
+
+### **background**  
+Runs the request in background mode if supported.
+
+### **service_tier**  
+Specifies the service tier (`default`, `premium`, etc.).
+
+### **truncation**  
+Controls how long inputs are truncated (`auto`, `disabled`, etc.).
+
+### **client**  
+Information about the calling application (agent name, version).
+
+---
+
+
+
 ### Response
+
+Full json structure of `/v1/responses` response
+
 ```json
 {
     "id": "resp_785215",

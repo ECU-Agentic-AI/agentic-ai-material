@@ -4,7 +4,7 @@
 ## Get latest from `dotnet new gitignore`
 
 [Nn]otes/
-
+prep/
 # dotenv files
 .env
 
