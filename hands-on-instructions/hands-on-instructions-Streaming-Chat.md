@@ -1,4 +1,4 @@
-# Agent Tools with C#, Ollama, and Microsoft Agent Framework
+# Hands-on Series: Agent Tools with C#, Ollama, and Microsoft Agent Framework
 
 If we wait for a completed message, we will not know that the model requested a tool until after the message is completed.
 
