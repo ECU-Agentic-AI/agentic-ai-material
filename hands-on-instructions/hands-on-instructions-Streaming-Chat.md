@@ -388,7 +388,7 @@ cd StreamingTutor
 # Add needed packages to the project
 dotnet add package Microsoft.Agents.AI --version 1.13.0
 dotnet add package Microsoft.Agents.AI.OpenAI --version 1.13.0
-dotnet add package Microsoft.Extensions.AI --version 10.7.0
+dotnet add package Microsoft.Extensions.AI --version 10.8.0
 dotnet add package OpenAI --version 2.12.0
 ```
 
