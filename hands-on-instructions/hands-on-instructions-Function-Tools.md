@@ -12,9 +12,15 @@ A function tool is ordinary application code that the model can request. Agent F
 3. invokes the C# function;
 4. sends the function result back to the model;
 5. lets the model produce the final answer.
+---
+The model chooses **whether** to call the tool and proposes arguments. Your C# code remains responsible for validation, authorization, side effects, and the result. We do not have complete control of when model requests a tool, nor do we have control over what parameters are provided by the model.
 
-The model chooses **whether** to call the tool and proposes arguments. Your C# code remains responsible for validation, authorization, side effects, and the result.
+It is important that we provide clear and detailed instructions to the model to increase success.
 
+Smaller models will be less reliable.
+- less reliable in requesting tool when they should request the tool
+- less reliable with the parameter values provided
+---
 In MAF function tools are of type `AIFunction`
 ```csharp
 AIFunction coursePolicyTool = AIFunctionFactory.Create(GetCoursePolicy);
@@ -36,7 +42,7 @@ AIFunction supports the schema required by OpenAI.  AIFunctionFactory generates 
     }
 }
 ```
-
+---
 An AIFunction can be created from a named function or an anonymous / lambda function.  
 
 `static` or `instance` function can be used.
@@ -71,15 +77,7 @@ static string GetCoursePolicy( [Description("Policy topic: deadlines, late work,
 }
 
 ```
-
-> Note: MAF will execute a tool when the model requests, but he model provides the actual parameters. We do not have complete control of when model requests a tool, nor do we have control over what parameters are provided by the model.  
-
-It is important that we provide clear and detailed instructions to the model to increase success.
-
-Smaller models will be less reliable.
-- less reliable in requesting tool when they should request the tool
-- less reliable with the parameter values provided
-
+---
 
 The model requests to use a tool is made by model by responding with functionCall content type instead of the typical text content type.
 
@@ -119,6 +117,7 @@ Comparison of MAF AIContents to OpenAI content types
 |WebSearchToolCallContent           | webSearchToolCall |
 |WebSearchToolResultContent         | webSearchToolResult |
 
+---
 
 MAF automatically processes tool requests and sends response back to the model. 
 ```csharp
@@ -135,7 +134,7 @@ await foreach (AgentResponseUpdate update in tutorAgent.RunStreamingAsync(
 }
 ```
 
-
+---
 
 This example gives the Tutor Agent access to official course policies. A deterministic lookup is better than asking the model to remember or invent policy.
 
